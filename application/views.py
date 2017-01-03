@@ -1,6 +1,12 @@
-from application import app
-from application import models
+from application import app, models , mail, bcrypt
+from flask import render_template, request, flash, redirect, url_for, session, jsonify, g,send_from_directory
+from werkzeug import secure_filename
+import requests
+import os
+import hashlib
+from datetime import datetime
+from validate_email import validate_email
 
 @app.route('/')
 def index():
-	return "Hello world"
+	return render_template('index.html')
