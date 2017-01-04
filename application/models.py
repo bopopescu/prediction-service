@@ -29,3 +29,24 @@ class User(db.Model):
 		return False
 	def is_authenticated(self):
 		return True
+
+class PredictionType(db.Model):
+	__tablename__ = "predictions"
+	id = db.Column('id', db.Integer, primary_key = True)
+	name = db.Column('name', db.String(255))
+
+def __init__(self, name):
+	self.name = name
+
+def __repr__(self):
+	return '<PredictionType %r>' % self.name
+
+class Prediction(db.Model):
+	__tablename__ = "predictions"
+	def __init__(self, game, prediction_type_id):
+		self.game = game
+		self.prediction_type_id = prediction_type_id
+		self.added_on = datetime.utcnow()
+
+	def __repr__(self):
+		return '<Prediction %r>' % self.game
