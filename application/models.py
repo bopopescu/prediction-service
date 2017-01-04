@@ -1,5 +1,6 @@
 from application import app
 from application import db
+from datetime import datetime
 
 
 class User(db.Model):
@@ -13,15 +14,16 @@ class User(db.Model):
 		self.name = name
 		self.password = password
 		self.email = email
+		self.registered_on = datetime.utcnow()
 
 	def __repr__(self):
 		return '<User %r>' % self.name
 
 	def is_active():
-		pass
-	def get_id():
-		pass
+		return True
+	def get_id(id):
+		return unicode(self.id)
 	def is_anonymous():
-		pass
+		return False
 	def is_authenticated():
-		pass
+		return True
