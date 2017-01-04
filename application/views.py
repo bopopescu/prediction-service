@@ -1,4 +1,4 @@
-from application import app, models , mail, db, bcrypt
+from application import app, models , mail, db, bcrypt, login_manager
 from flask import render_template, request, flash, redirect, url_for, session, jsonify, g,send_from_directory
 from werkzeug import secure_filename
 import requests
@@ -10,6 +10,11 @@ from flask_login import UserMixin, login_required, login_user, logout_user
 @app.route('/')
 def index():
 	return render_template('index.html')
+
+@login_manager.user_loader
+def load_user(id):
+	# pass
+    return models.User.query.get(int(id))
 
 @app.route('/register' , methods=['GET','POST'])
 def register():
@@ -34,3 +39,14 @@ def login():
     login_user(registered_user)
     flash('Logged in successfully')
     return redirect(request.args.get('next') or url_for('index'))
+
+@app.route('/dashboard', methods=['GET', 'POST'])
+@login_required
+def dashboard():
+	return render_template("dashboard.html")
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
