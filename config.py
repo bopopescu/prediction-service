@@ -1,5 +1,4 @@
-SQLALCHEMY_DATABASE_URI=""
-secret_key="tushies"
+SQLALCHEMY_DATABASE_URI="mysql+mysqlconnector://root:omokhudu@localhost/predictor"
 UPLOAD_FOLDER=""
 DEBUG=True
 #EMAIL SETTINGS

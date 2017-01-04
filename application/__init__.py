@@ -11,7 +11,7 @@ mail = Mail(app)
 bcrypt = Bcrypt(app)
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
-
+app.secret_key="tushies"
 # flask-login
 login_manager = LoginManager()
 login_manager.init_app(app)
