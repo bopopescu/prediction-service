@@ -31,7 +31,7 @@ class User(db.Model):
 		return True
 
 class PredictionType(db.Model):
-	__tablename__ = "predictions"
+	__tablename__ = "prediction_types"
 	id = db.Column('id', db.Integer, primary_key = True)
 	name = db.Column('name', db.String(255))
 
@@ -43,6 +43,10 @@ def __repr__(self):
 
 class Prediction(db.Model):
 	__tablename__ = "predictions"
+	id = db.Column('id', db.Integer, primary_key = True)
+	game = db.Column('game', db.String(255))
+	prediction_type_id = db.Column('prediction_type_id', db.Integer)
+
 	def __init__(self, game, prediction_type_id):
 		self.game = game
 		self.prediction_type_id = prediction_type_id

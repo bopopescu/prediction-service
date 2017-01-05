@@ -1,11 +1,13 @@
 from application import app, models , mail, db, bcrypt, login_manager
-from flask import render_template, request, flash, redirect, url_for, session, jsonify, g,send_from_directory
+from flask import render_template, request, flash, redirect, url_for, session, jsonify, g,send_from_directory, make_response
 from werkzeug import secure_filename
 import requests
 import os
 import hashlib
 from validate_email import validate_email
 from flask_login import UserMixin, login_required, login_user, logout_user
+import csv
+import io
 
 @app.route('/')
 def index():
@@ -50,3 +52,30 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('index'))
+
+def transform(text_file_contents):
+    return text_file_contents.replace("=", ",")
+
+@app.route('/upload', methods=['GET', 'POST'])
+@login_required
+def upload_prediction():
+    if request.method == "POST":
+        file = request.files['file']
+        if not file:
+            return "No file"
+        stream = io.StringIO(file.stream.read().decode("UTF8"), newline=None)
+        csv_input = csv.reader(stream)
+
+        for row in csv_input:
+            prediction = models.Prediction(game=row[0], prediction_type_id=row[1])
+            db.session.add(prediction)
+            db.session.commit()
+
+        # to download
+        # stream.seek(0)
+        # result = transform(stream.read())
+        # response = make_response(result)
+        # response.headers["Content-Disposition"] = "attachment; filename=result.csv"
+        # return response
+
+    return render_template("upload.html")
