@@ -70,7 +70,7 @@ def upload_prediction():
             prediction = models.Prediction(game=row[0], prediction_type_id=row[1])
             db.session.add(prediction)
             db.session.commit()
-
+        flash('CSV uploaded', 'success')
         # to download
         # stream.seek(0)
         # result = transform(stream.read())
