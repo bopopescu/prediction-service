@@ -46,6 +46,9 @@ class Prediction(db.Model):
 	id = db.Column('id', db.Integer, primary_key = True)
 	game = db.Column('game', db.String(255))
 	prediction_type_id = db.Column('prediction_type_id', db.Integer)
+	added_on = db.Column('registered_on' , db.DateTime)
+	modified_on = db.Column('registered_on' , db.DateTime)
+
 
 	def __init__(self, game, prediction_type_id):
 		self.game = game
