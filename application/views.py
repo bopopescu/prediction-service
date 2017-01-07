@@ -90,3 +90,9 @@ def payment():
     pass
 
 
+@app.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+    pass
+
+
