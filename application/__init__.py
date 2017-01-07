@@ -17,6 +17,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 # login_manager.login_view = "login"
 
+#load helpers
+from application import helpers
 
 # Load the views
 from application import views
