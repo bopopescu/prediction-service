@@ -53,9 +53,6 @@ def logout():
     logout_user()
     return redirect(url_for('index'))
 
-def transform(text_file_contents):
-    return text_file_contents.replace("=", ",")
-
 @app.route('/upload', methods=['GET', 'POST'])
 @login_required
 def upload_prediction():
@@ -71,11 +68,19 @@ def upload_prediction():
             db.session.add(prediction)
             db.session.commit()
         flash('CSV uploaded', 'success')
-        # to download
-        # stream.seek(0)
-        # result = transform(stream.read())
-        # response = make_response(result)
-        # response.headers["Content-Disposition"] = "attachment; filename=result.csv"
-        # return response
-
     return render_template("upload.html")
+
+@app.route('/predictions', methods=['GET'])
+@login_required
+def pediction_list():
+    return render_template("prediction_list.html")
+
+@app.route('/subscription', methods=['GET', 'POST'])
+@login_required
+def subscription_page():
+    pass
+
+@app.route('/predictions', methods=['GET', 'POST'])
+@login_required
+def payment():
+    pass
