@@ -42,6 +42,10 @@ def login():
     flash('Logged in successfully')
     return redirect(request.args.get('next') or url_for('index'))
 
+@app.route('/faq', methods=['GET'])
+def faq():
+    pass
+
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def dashboard():
@@ -84,3 +88,5 @@ def subscription_page():
 @login_required
 def payment():
     pass
+
+
